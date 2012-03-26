@@ -1,0 +1,10 @@
+nbproject/private
+build
+dist
+Data
+.dep.inc
+*~
+projek graficzny.*
+*.sqlite3
+*.sqlite3-journal
+notatki
