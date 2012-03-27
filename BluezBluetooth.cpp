@@ -6,6 +6,7 @@
  */
 
 #include "BluezBluetooth.h"
+#include "equalMAC.h"
 
 #include <iostream>
 #include <stdlib.h>
@@ -14,6 +15,7 @@
 #include <bluetooth/bluetooth.h>
 #include <bluetooth/hci.h>
 #include <bluetooth/hci_lib.h>
+#include <algorithm>
 
 BluezBluetooth::BluezBluetooth()
 {
@@ -27,13 +29,17 @@ BluezBluetooth::~BluezBluetooth()
 {
 }
 
-std::list<Device> BluezBluetooth::scanDevices() throw (BluezBluetooth::NoDeviceException)
+std::list<Device> BluezBluetooth::getDevices()
 {
-  scan();
   return devices;
 }
 
-void BluezBluetooth::scan() throw(BluezBluetooth::NoDeviceException)
+void BluezBluetooth::scanDevices() throw (BluezBluetooth::BluetoothError)
+{
+  scan();
+}
+
+void BluezBluetooth::scan() throw(BluezBluetooth::BluetoothError)
 {
   devices.clear();
   inquiry_info *ii = NULL;
@@ -47,7 +53,7 @@ void BluezBluetooth::scan() throw(BluezBluetooth::NoDeviceException)
   sock = hci_open_dev(dev_id);
   if (dev_id < 0 || sock < 0)
   {
-    throw NoDeviceException("Cannot open socket");
+    throw BluetoothError("Cannot open socket");
   }
 
   len = 8;
@@ -56,7 +62,7 @@ void BluezBluetooth::scan() throw(BluezBluetooth::NoDeviceException)
   ii = (inquiry_info*) malloc(max_rsp * sizeof (inquiry_info));
 
   num_rsp = hci_inquiry(dev_id, len, max_rsp, NULL, &ii, flags);
-  if (num_rsp < 0) throw NoDeviceException("hci_inquiry");
+  if (num_rsp < 0) throw BluetoothError("hci_inquiry");
   for (i = 0; i < num_rsp; i++)
   {
     ba2str(&(ii + i)->bdaddr, addr);
@@ -70,4 +76,14 @@ void BluezBluetooth::scan() throw(BluezBluetooth::NoDeviceException)
 
   free(ii);
   close(sock);
+}
+
+Device BluezBluetooth::findByMAC(std::string MAC) throw (BluezBluetooth::NotFound)
+{
+  std::list<Device>::iterator found = find_if(devices.begin(), devices.end(), EqalMAC(MAC));
+  if (found == devices.end())
+  {
+    throw BluezBluetooth::NotFound();
+  }
+  return *found;
 }

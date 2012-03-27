@@ -14,20 +14,33 @@
 #include "BluezBluetooth.h"
 #include "Device.h"
 
-TEST(ScanDevices, ScanDevices)
+TEST(ScanDevices, TwiceScanDevices)
 {
   BluezBluetooth b;
-  std::list<Device> devs = b.scanDevices();
+  b.scanDevices();
+  std::list<Device> devs = b.getDevices();
   std::list<Device>::iterator it, end;
   for (it = devs.begin(), end = devs.end(); it != end; it++)
   {
     std::cout << it->getMAC() << " " << it->getName() << "\n";
   }
-  devs = b.scanDevices();
+  b.scanDevices();
+  devs = b.getDevices();
   for (it = devs.begin(), end = devs.end(); it != end; it++)
   {
     std::cout << it->getMAC() << " " << it->getName() << "\n";
   }
+}
+
+TEST(FindByMAC, Tel)
+{
+  BluezBluetooth b;
+  Device tel;
+  b.scanDevices();
+  ASSERT_THROW(tel = b.findByMAC("1"), BluezBluetooth::NotFound);
+  ASSERT_NO_THROW(tel = b.findByMAC("D0:DF:C7:26:A1:68"));
+  ASSERT_EQ(tel.getName(), "Telefon-Tom");
+  
 }
 
 int main(int argc, char **argv)

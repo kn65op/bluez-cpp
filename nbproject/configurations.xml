@@ -6,6 +6,7 @@
                    projectFiles="true">
       <itemPath>BluezBluetooth.h</itemPath>
       <itemPath>Device.h</itemPath>
+      <itemPath>equalMAC.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"

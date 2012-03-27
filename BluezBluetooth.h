@@ -18,10 +18,10 @@ public:
   /**
    * Klasa wyjątku w przypadku błędu.
    */
-  class NoDeviceException
+  class BluetoothError
   {
   public:
-    NoDeviceException(std::string e) : error(e)
+    BluetoothError(std::string e) : error(e)
     {
       
     }
@@ -35,20 +35,39 @@ public:
     std::string error;
   };
   
+  /**
+   * Klasa wyjątku w przypadku nie znalezienia urządzenia, którego szukamy.
+   */
+  class NotFound
+  {
+    
+  };
+  
   BluezBluetooth();
   BluezBluetooth(const BluezBluetooth& orig);
   virtual ~BluezBluetooth();
   
   /**
-   * Funkcja zwracająca listę wykrytych urządzeń.
+   * Funkcja zwracająca listę wykrytych urządzeń. Jeśli wystąpi błąd to rzucany jest wyjątek.
    * @return Lista wykrytych urządzeń.
    */
-  std::list<Device> scanDevices() throw(NoDeviceException);
+  std::list<Device> getDevices();
+  /**
+   * Funkcja wyszukująca widocznych urządzeń w pobliżu. Jeśli wystąpi błąd to rzucany jest wyjątek.
+   */
+  void scanDevices() throw(BluetoothError);
+  
+  /**
+   * Funkcja szukająca urządzeń w zasięgu po adresie MAC. Jeśli nie ma urządzenia o danym adresie to wyrzucany jest wyjątek. Przed wykonaniem wyszukiwania na liście należy wyszukać urządzeń w zasięgu.
+   * @param MAC Adres MAC urządzenia, które chcemy znaleźć.
+   * @return Znalezione urządzenie.
+   */
+  Device findByMAC(std::string MAC) throw(NotFound);
   
   
 private:
   std::list<Device> devices;
-  void scan() throw(NoDeviceException);
+  void scan() throw(BluetoothError);
 };
 
 #endif	/* BLUEZBLUETOOTH_H */
