@@ -47,7 +47,8 @@ public:
   
   
 private:
-
+  std::list<Device> devices;
+  void scan() throw(NoDeviceException);
 };
 
 #endif	/* BLUEZBLUETOOTH_H */

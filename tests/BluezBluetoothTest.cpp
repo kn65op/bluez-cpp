@@ -23,6 +23,11 @@ TEST(ScanDevices, ScanDevices)
   {
     std::cout << it->getMAC() << " " << it->getName() << "\n";
   }
+  devs = b.scanDevices();
+  for (it = devs.begin(), end = devs.end(); it != end; it++)
+  {
+    std::cout << it->getMAC() << " " << it->getName() << "\n";
+  }
 }
 
 int main(int argc, char **argv)

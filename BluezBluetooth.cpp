@@ -29,7 +29,13 @@ BluezBluetooth::~BluezBluetooth()
 
 std::list<Device> BluezBluetooth::scanDevices() throw (BluezBluetooth::NoDeviceException)
 {
-  std::list<Device> devices;
+  scan();
+  return devices;
+}
+
+void BluezBluetooth::scan() throw(BluezBluetooth::NoDeviceException)
+{
+  devices.clear();
   inquiry_info *ii = NULL;
   int max_rsp, num_rsp;
   int dev_id, sock, len, flags;
@@ -64,5 +70,4 @@ std::list<Device> BluezBluetooth::scanDevices() throw (BluezBluetooth::NoDeviceE
 
   free(ii);
   close(sock);
-  return devices;
 }
