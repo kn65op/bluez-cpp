@@ -15,14 +15,37 @@
 class BluezBluetooth
 {
 public:
+  /**
+   * Klasa wyjątku w przypadku błędu.
+   */
+  class NoDeviceException
+  {
+  public:
+    NoDeviceException(std::string e) : error(e)
+    {
+      
+    }
+    
+    std::string GetError() const
+    {
+      return error;
+    }
+
+  private:
+    std::string error;
+  };
+  
   BluezBluetooth();
   BluezBluetooth(const BluezBluetooth& orig);
   virtual ~BluezBluetooth();
   
   /**
-   * Funkcja skanująca urządzenia.
+   * Funkcja zwracająca listę wykrytych urządzeń.
+   * @return Lista wykrytych urządzeń.
    */
-  std::list<Device> scanDevices();
+  std::list<Device> scanDevices() throw(NoDeviceException);
+  
+  
 private:
 
 };

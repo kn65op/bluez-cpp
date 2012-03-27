@@ -17,25 +17,28 @@ class Device
 {
 public:
   Device();
-  Device(const Device& orig);
+  Device(std::string M, std::string n) : MAC(M), name(n)
+  {
+    
+  }
   virtual ~Device();
   
-  std::string GetMAC() const
+  std::string getMAC() const
   {
     return MAC;
   }
 
-  void SetMAC(std::string MAC)
+  void setMAC(std::string MAC)
   {
     this->MAC = MAC;
   }
 
-  std::string GetName() const
+  std::string getName() const
   {
     return name;
   }
 
-  void SetName(std::string name)
+  void setName(std::string name)
   {
     this->name = name;
   }

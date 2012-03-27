@@ -11,10 +11,6 @@ Device::Device()
 {
 }
 
-Device::Device(const Device& orig)
-{
-}
-
 Device::~Device()
 {
 }

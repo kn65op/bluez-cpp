@@ -17,7 +17,12 @@
 TEST(ScanDevices, ScanDevices)
 {
   BluezBluetooth b;
-  b.scanDevices();
+  std::list<Device> devs = b.scanDevices();
+  std::list<Device>::iterator it, end;
+  for (it = devs.begin(), end = devs.end(); it != end; it++)
+  {
+    std::cout << it->getMAC() << " " << it->getName() << "\n";
+  }
 }
 
 int main(int argc, char **argv)
