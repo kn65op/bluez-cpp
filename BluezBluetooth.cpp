@@ -7,6 +7,7 @@
 
 #include "BluezBluetooth.h"
 #include "equalMAC.h"
+#include "equalName.h"
 
 #include <iostream>
 #include <stdlib.h>
@@ -39,7 +40,7 @@ void BluezBluetooth::scanDevices() throw (BluezBluetooth::BluetoothError)
   scan();
 }
 
-void BluezBluetooth::scan() throw(BluezBluetooth::BluetoothError)
+void BluezBluetooth::scan() throw (BluezBluetooth::BluetoothError)
 {
   devices.clear();
   inquiry_info *ii = NULL;
@@ -81,6 +82,16 @@ void BluezBluetooth::scan() throw(BluezBluetooth::BluetoothError)
 Device BluezBluetooth::findByMAC(std::string MAC) throw (BluezBluetooth::NotFound)
 {
   std::list<Device>::iterator found = find_if(devices.begin(), devices.end(), EqalMAC(MAC));
+  if (found == devices.end())
+  {
+    throw BluezBluetooth::NotFound();
+  }
+  return *found;
+}
+
+Device BluezBluetooth::findByName(std::string name) throw (BluezBluetooth::NotFound)
+{
+  std::list<Device>::iterator found = find_if(devices.begin(), devices.end(), EqalName(name));
   if (found == devices.end())
   {
     throw BluezBluetooth::NotFound();

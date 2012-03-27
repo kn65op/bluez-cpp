@@ -38,8 +38,19 @@ TEST(FindByMAC, Tel)
   Device tel;
   b.scanDevices();
   ASSERT_THROW(tel = b.findByMAC("1"), BluezBluetooth::NotFound);
-  ASSERT_NO_THROW(tel = b.findByMAC("D0:DF:C7:26:A1:68"));
-  ASSERT_EQ(tel.getName(), "Telefon-Tom");
+  ASSERT_NO_THROW(tel = b.findByMAC("")); //wpisz swój
+  ASSERT_EQ(tel.getName(), ""); //wpisz swoj
+  
+}
+
+TEST(FindByName, Tel)
+{
+  BluezBluetooth b;
+  Device tel;
+  b.scanDevices();
+  ASSERT_THROW(tel = b.findByName("a1"), BluezBluetooth::NotFound);
+  ASSERT_NO_THROW(tel = b.findByName("")); //wpisz swoj
+  ASSERT_EQ(tel.getMAC(), ""); //wpisz swoj
   
 }
 
