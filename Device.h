@@ -9,6 +9,8 @@
 #define	DEVICE_H
 
 #include <string>
+#include <bluetooth/bluetooth.h>
+#include <bluetooth/rfcomm.h>
 
 /**
  * Klasa Device odpowiada urządzeniu bluetooth.
@@ -42,10 +44,26 @@ public:
   {
     this->name = name;
   }
+  
+  uint8_t getPort() const
+  {
+    return port;
+  }
 
+  void setPort(uint8_t port)
+  {
+    this->port = port;
+  }
+
+
+  void sendInt(int to_send);
 private:
   std::string MAC;
   std::string name;
+  uint8_t port;
+  struct sockaddr_rc sock_addr;
+  
+  void createSockAddr();
 };
 
 #endif	/* DEVICE_H */
