@@ -18,13 +18,43 @@
 class Device
 {
 public:
+
+  class ConnectionError
+  {
+  public:
+
+    ConnectionError(std::string n, std::string m, std::string a) : name(n), MAC(m), action(a)
+    {
+    };
+    std::string GetMAC() const
+    {
+      return MAC;
+    }
+
+    std::string GetName() const
+    {
+      return name;
+    }
+
+    std::string GetAction() const
+    {
+      return action;
+    }
+
+
+  private:
+    std::string MAC;
+    std::string name;
+    std::string action;
+  };
   Device();
+
   Device(std::string M, std::string n) : MAC(M), name(n)
   {
-    
+
   }
   virtual ~Device();
-  
+
   std::string getMAC() const
   {
     return MAC;
@@ -44,7 +74,7 @@ public:
   {
     this->name = name;
   }
-  
+
   uint8_t getPort() const
   {
     return port;
@@ -56,14 +86,15 @@ public:
   }
 
 
-  void sendInt(int to_send);
+  void sendInt(int to_send) throw(Device::ConnectionError);
 private:
   std::string MAC;
   std::string name;
   uint8_t port;
   struct sockaddr_rc sock_addr;
-  
+
   void createSockAddr();
+  void createSockAddr(uint8_t port);
 };
 
 #endif	/* DEVICE_H */
