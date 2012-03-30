@@ -85,8 +85,12 @@ public:
     this->port = port;
   }
 
-
+  /**
+   * Funkcja wysyłająca int na dane urządzenie.
+   * @param to_send int do wysłania.
+   */
   void sendInt(int to_send) throw(Device::ConnectionError);
+  
 private:
   std::string MAC;
   std::string name;
