@@ -7,6 +7,8 @@
 
 #include "Device.h"
 
+#include <iostream>
+
 #include <unistd.h>
 #include <sys/socket.h>
 
@@ -26,20 +28,20 @@ void Device::sendInt(int to_send) throw(Device::ConnectionError)
   int status = connect(s, (struct sockaddr *) &sock_addr, sizeof(sock_addr)); //nawiązanie połączenie 
   if (status < 0)
   {
+    std::cout << "Status: " << status << "\n";
     throw Device::ConnectionError(name, MAC, "connecting");
   }
   status = write(s, &to_send, sizeof(int));
   if (status < 0)
   {
+    std::cout << "Status: " << status << "\n";
     throw Device::ConnectionError(name, MAC, "sending");
   }
 }
 
 void Device::createSockAddr()
 {
-  sock_addr.rc_family = AF_BLUETOOTH; // ustawienie na bluetooth
-  sock_addr.rc_channel = port; //TODO: ustalić port
-  str2ba(MAC.c_str(), &sock_addr.rc_bdaddr); //ustawienie adresu MAC urządzenia docelowego
+  createSockAddr(port);
 }
 
 void Device::createSockAddr(uint8_t port)
