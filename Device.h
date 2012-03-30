@@ -90,15 +90,18 @@ public:
    * @param to_send int do wysłania.
    */
   void sendInt(int to_send) throw(Device::ConnectionError);
-  
+  int receiveInt() throw(Device::ConnectionError);
 private:
   std::string MAC;
   std::string name;
   uint8_t port;
-  struct sockaddr_rc sock_addr;
+  struct sockaddr_rc sock_addr_send;
+  struct sockaddr_rc sock_addr_rec;
 
-  void createSockAddr();
-  void createSockAddr(uint8_t port);
+  void createSockAddrSend();
+  void createSockAddrSend(uint8_t port);
+  void createSockAddrRec();
+  void clearSockRec();
 };
 
 #endif	/* DEVICE_H */
