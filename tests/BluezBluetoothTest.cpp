@@ -54,11 +54,52 @@
 //  
 //}
 
-TEST(Send, Send)
+//TEST(Send, Send)
+//{
+/*Device d("00:18:E4:0C:68:FD", "DIY_HA");
+d.setPort(1);
+d.sendChar('s');*/
+//}
+
+TEST(Receive, Int)
 {
-  Device d("MAC", "nazwa");
-  d.setPort(30);
-  d.sendInt(324);
+  Device d("00:18:E4:0C:68:FD", "DIY_HA"); //arduino
+  d.setPort(1);
+  //d.sendChar('s');
+  try
+  {
+    d.startConnection();
+  }
+  catch (Device::ConnectionError e)
+  {
+    std::cout << "Brak polaczenia\n";
+  }
+  try
+  {
+    d.sendChar('s');
+  }
+  catch (Device::ConnectionError e)
+  {
+    d.stopConnection();
+    ASSERT_TRUE(false);
+  }
+  int i = 10;
+  while (i--)
+  {
+    u_char tmp;
+    EXPECT_NO_THROW(tmp = d.receiveUChar());
+
+    std::cout << /*(int)*/ tmp << "\n";
+  }
+  try
+  {
+    d.sendChar('s');
+  }
+  catch (Device::ConnectionError)
+  {
+    d.stopConnection();
+  }
+  d.stopConnection();
 }
 
 int main(int argc, char **argv)
