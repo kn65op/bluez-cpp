@@ -98,3 +98,13 @@ Device BluezBluetooth::findByName(std::string name) throw (BluezBluetooth::NotFo
   }
   return *found;
 }
+
+std::list<Device*> BluezBluetooth::getDevicesPointers()
+{
+  std::list<Device*> ret;
+  std::list<Device>::iterator it, end;
+  for (it = devices.begin(), end = devices.end(); it != end; ++it)
+  {
+    ret.push_back(new Device(*it));
+  }
+}

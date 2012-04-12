@@ -53,6 +53,12 @@ public:
    */
   std::list<Device> getDevices();
   /**
+   * Funkcja zwracająca listę wskaźników do wykrytych urządzeń. Jeśli wystąpi błąd to rzucany jest wyjątek. Jeśli nie jest konieczne używanie wskaźników należy użyć getDevices().
+   * Należy zwolnić pamięć używaną przez listę samodzielnie.
+   * @return Lista wskaźników do wykrytych urządzeń.
+   */
+  std::list<Device*> getDevicesPointers();
+  /**
    * Funkcja wyszukująca widocznych urządzeń w pobliżu. Jeśli wystąpi błąd to rzucany jest wyjątek.
    */
   void scanDevices() throw (BluetoothError);

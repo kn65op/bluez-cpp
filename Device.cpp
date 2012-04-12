@@ -38,6 +38,7 @@ Device::Device(const Device& c)
   name = c.name;
   my_socket = 0;
   port = c.port;
+  my_socket = 0;
 }
 
 Device::~Device()
