@@ -36,7 +36,6 @@ Device::Device(const Device& c)
   //kopiowanie tylko danych urządzenia
   MAC = c.MAC;
   name = c.name;
-  my_socket = 0;
   port = c.port;
   my_socket = 0;
 }
