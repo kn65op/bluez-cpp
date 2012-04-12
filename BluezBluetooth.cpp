@@ -109,7 +109,7 @@ std::list<Device*> BluezBluetooth::getDevicesPointers()
   }
 }
 
-void BluezBluetooth::deleteByMAC(std::string MAC)
+bool BluezBluetooth::deleteByMAC(std::string MAC)
 {
   std::list<Device>::iterator it = findByMAC(MAC);
   if (it != devices.end())
@@ -118,7 +118,7 @@ void BluezBluetooth::deleteByMAC(std::string MAC)
   }
 }
 
-void BluezBluetooth::deleteByName(std::string name)
+bool BluezBluetooth::deleteByName(std::string name)
 {
   std::list<Device>::iterator it = findByName(name);
   if (it != devices.end())
