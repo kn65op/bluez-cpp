@@ -78,15 +78,17 @@ public:
   Device getDeviceByName(std::string name) throw (NotFound);
   
   /**
-   * Funkcja usuwająca z listy znalezionych urządzeń urządzenie o podanym adresie MAC.
+   * Funkcja usuwająca z listy znalezionych urządzeń urządzenie o podanym adresie MAC. Jeśli podanego urządzenia nie ma na liście to nic się nie dzieje.
    * @param MAC Adres MAC urządzenia do usunięcia.
+   * @return true jeśli usunięto urządzenie, false w przeciwnym wypadku
    */
-  void deleteByMAC(std::string MAC);
+  bool deleteByMAC(std::string MAC);
   /**
-   * Funkcja usuwają z listy znalezionych urządzeń urządzenie o podanej nazwie.
+   * Funkcja usuwają z listy znalezionych urządzeń urządzenie o podanej nazwie. Jeśli podanego urządzenia nie ma na liście to nic się nie dzieje.
    * @param name Nazwa urządzenia do usunięcia.
+   * @return true jeśli usunięto urządzenie, false w przeciwnym wypadku
    */
-  void deleteByName(std::string name);
+  bool deleteByName(std::string name);
 
 
 private:
