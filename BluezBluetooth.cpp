@@ -79,9 +79,9 @@ void BluezBluetooth::scan() throw (BluezBluetooth::BluetoothError)
   close(sock);
 }
 
-Device BluezBluetooth::findByMAC(std::string MAC) throw (BluezBluetooth::NotFound)
+Device BluezBluetooth::getDeviceByMAC(std::string MAC) throw (BluezBluetooth::NotFound)
 {
-  std::list<Device>::iterator found = find_if(devices.begin(), devices.end(), EqalMAC(MAC));
+  std::list<Device>::iterator found = findByMAC(MAC);
   if (found == devices.end())
   {
     throw BluezBluetooth::NotFound();
@@ -89,12 +89,40 @@ Device BluezBluetooth::findByMAC(std::string MAC) throw (BluezBluetooth::NotFoun
   return *found;
 }
 
-Device BluezBluetooth::findByName(std::string name) throw (BluezBluetooth::NotFound)
+Device BluezBluetooth::getDeviceByName(std::string name) throw (BluezBluetooth::NotFound)
 {
-  std::list<Device>::iterator found = find_if(devices.begin(), devices.end(), EqalName(name));
+  std::list<Device>::iterator found = findByName(name);
   if (found == devices.end())
   {
     throw BluezBluetooth::NotFound();
   }
   return *found;
+}
+
+void BluezBluetooth::deleteByMAC(std::string MAC)
+{
+  std::list<Device>::iterator it = findByMAC(MAC);
+  if (it != devices.end())
+  {
+    devices.erase(it);
+  }
+}
+
+void BluezBluetooth::deleteByName(std::string name)
+{
+  std::list<Device>::iterator it = findByName(name);
+  if (it != devices.end())
+  {
+    devices.erase(it);
+  }
+}
+
+std::list<Device>::iterator BluezBluetooth::findByMAC(std::string MAC)
+{
+  return find_if(devices.begin(), devices.end(), EqalMAC(MAC));
+}
+
+std::list<Device>::iterator BluezBluetooth::findByName(std::string name)
+{
+  return find_if(devices.begin(), devices.end(), EqalName(name));
 }

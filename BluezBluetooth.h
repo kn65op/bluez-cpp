@@ -62,19 +62,43 @@ public:
    * @param MAC Adres MAC urządzenia, które chcemy znaleźć.
    * @return Znalezione urządzenie.
    */
-  Device findByMAC(std::string MAC) throw (NotFound);
+  Device getDeviceByMAC(std::string MAC) throw (NotFound);
 
   /**
    * Funkcja szukająca urządzeń w zasięgu po nazwie. Jeśli nie ma urządzenia o danej nazwie to wyrzucany jest wyjątek. Przed wykonaniem wyszukiwania na liście należy wyszukać urządzeń w zasięgu.
    * @param name Nazwa urządzenia, które chcemy znaleźć.
    * @return Znalezione urządzenie.
    */
-  Device findByName(std::string name) throw (NotFound);
+  Device getDeviceByName(std::string name) throw (NotFound);
+  
+  /**
+   * Funkcja usuwająca z listy znalezionych urządzeń urządzenie o podanym adresie MAC.
+   * @param MAC Adres MAC urządzenia do usunięcia.
+   */
+  void deleteByMAC(std::string MAC);
+  /**
+   * Funkcja usuwają z listy znalezionych urządzeń urządzenie o podanej nazwie.
+   * @param name Nazwa urządzenia do usunięcia.
+   */
+  void deleteByName(std::string name);
 
 
 private:
   std::list<Device> devices;
   void scan() throw (BluetoothError);
+  
+  /**
+   * Szuakanie na liście urządzenia o podanym MAC.
+   * @param MAC MAC szukanego urządzenia.
+   * @return Iterator do listy jeśli znaledziono lub iterator end w razie braku urządzenia na liście.
+   */
+  std::list<Device>::iterator findByMAC(std::string MAC);
+  /**
+   * Szuakanie na liście urządzenia o podanej nazwie.
+   * @param name Nazwa szukanego urządzenia.
+   * @return Iterator do listy jeśli znaledziono lub iterator end w razie braku urządzenia na liście.
+   */
+  std::list<Device>::iterator findByName(std::string name);
 };
 
 #endif	/* BLUEZBLUETOOTH_H */
