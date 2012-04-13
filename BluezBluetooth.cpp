@@ -115,7 +115,9 @@ bool BluezBluetooth::deleteByMAC(std::string MAC)
   if (it != devices.end())
   {
     devices.erase(it);
+    return true;
   }
+  return false;
 }
 
 bool BluezBluetooth::deleteByName(std::string name)
@@ -124,7 +126,9 @@ bool BluezBluetooth::deleteByName(std::string name)
   if (it != devices.end())
   {
     devices.erase(it);
+    return true;
   }
+  return false;
 }
 
 std::list<Device>::iterator BluezBluetooth::findByMAC(std::string MAC)
