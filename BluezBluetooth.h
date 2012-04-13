@@ -89,7 +89,11 @@ public:
    * @return true jeśli usunięto urządzenie, false w przeciwnym wypadku
    */
   bool deleteByName(std::string name);
-
+  /**
+   * Funkcja sprawdzająca czy w systemie istnieje urządzenie bluetooth oraz czy jest włączone.
+   * @return true jeśli urządzenie jest włączone, false w przeciwnym wypadku.
+   */
+  static bool isDeviceOn();
 
 private:
   std::list<Device> devices;

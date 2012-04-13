@@ -51,8 +51,12 @@ void BluezBluetooth::scan() throw (BluezBluetooth::BluetoothError)
   char name[248] = {0};
 
   dev_id = hci_get_route(NULL);
+  if (dev_id == -1)
+  {
+    throw BluetoothError("No local device.");
+  }
   sock = hci_open_dev(dev_id);
-  if (dev_id < 0 || sock < 0)
+  if (sock < 0)
   {
     throw BluetoothError("Cannot open socket");
   }
@@ -139,4 +143,13 @@ std::list<Device>::iterator BluezBluetooth::findByMAC(std::string MAC)
 std::list<Device>::iterator BluezBluetooth::findByName(std::string name)
 {
   return find_if(devices.begin(), devices.end(), EqalName(name));
+}
+
+bool BluezBluetooth::isDeviceOn()
+{
+  if (hci_get_route(NULL) == -1)
+  {
+    return false;
+  }
+  return true;
 }
