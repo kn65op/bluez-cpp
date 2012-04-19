@@ -94,6 +94,11 @@ public:
    * @return true jeśli urządzenie jest włączone, false w przeciwnym wypadku.
    */
   static bool isDeviceOn();
+  /**
+   * Funkcja zwracająca liczbę znalezionych urządzeń.
+   * @return Liczba znalezionych urządzeń.
+   */
+  int size();
 
 private:
   std::list<Device> devices;

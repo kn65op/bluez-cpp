@@ -153,3 +153,8 @@ bool BluezBluetooth::isDeviceOn()
   }
   return true;
 }
+
+int BluezBluetooth::size()
+{
+  return devices.size();
+}
