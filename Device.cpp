@@ -117,10 +117,10 @@ uint32_t Device::receiveUInt4() throw (Device::ConnectionError)
   unsigned int buff; //bufor
   //pobranie pierwszego bajtu
   buff = receiveUChar(); //domyślna konwersja char do uint
-  for (int i=0; i<3; i++) //trzykrotnie przesunięcie bitowe i pobranie po kolejnym
+  for (int i = 0; i < 3; i++) //trzykrotnie przesunięcie bitowe i pobranie po kolejnym
   {
     buff << 8; //zrobienie miejsca na kolejne bajty
-    buff += receiveUChar();  //pobranie kolejnego bajtu
+    buff += receiveUChar(); //pobranie kolejnego bajtu
   }
   return buff;
 
@@ -180,4 +180,22 @@ void Device::startConnection()
     close(my_socket);
     throw Device::ConnectionError(name, MAC, "Error while connecting");
   }
+}
+
+std::ostream & operator <<(std::ostream& o, Device& d)
+{
+  o << d.getMAC() << " " << d.getName() << " " << d.getPort() << "\n";
+  return o;
+}
+
+std::istream & operator >>(std::istream& i, Device& d)
+{
+  std::string MAC, name;
+  i >> MAC;
+  i >> name;
+  uint8_t port;
+  i >> port;
+  d.setMAC(MAC);
+  d.setName(name);
+  d.setPort(port);
 }

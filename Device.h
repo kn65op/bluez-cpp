@@ -11,6 +11,8 @@
 #include <string>
 #include <bluetooth/bluetooth.h>
 #include <bluetooth/rfcomm.h>
+#include <ostream>
+#include <istream>
 
 /**
  * Klasa Device odpowiada urządzeniu bluetooth. Pozwala na wysyłanie i odbieranie informacji z urządzeniem zdalnym.
@@ -49,7 +51,7 @@ public:
     std::string action;
   };
   Device();
-  
+
   /**
    * Kontruktor kopiujący. Kopiuje tylko dane urządzenia, połączenie trzeba tworzyć od nowa.
    * @param c Urządzenie do skopiowania.
@@ -137,6 +139,22 @@ private:
   void createSockAddrRec();
   void clearSockRec();
 };
+
+/**
+ * Funkcja zapisująca Device (nazwę, MAC i port) do std::ostream.
+ * @param o std::ostream do którego jest zapis.
+ * @param d Device, który jest zapisywany.
+ * @return std::ostrema do którego jest zapis.
+ */
+std::ostream& operator<<(std::ostream& o, Device &d);
+
+/**
+ * Funkcja wczytująca Device (nazwę, MAC i port) z std::istream.
+ * @param i std::istream z którego jest odczyt.
+ * @param d Device, który jest wczytywany.
+ * @return std::istream z którego jest zapis.
+ */
+std::istream& operator>>(std::istream& i, Device &d);
 
 #endif	/* DEVICE_H */
 /*
