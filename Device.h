@@ -107,12 +107,12 @@ public:
    * Funkcja wysyłająca jeden znak.
    * @param to_send Znak, który chcemy wysłać
    */
-  void sendChar(char to_send) throw (Device::ConnectionError);
+  virtual void sendChar(char to_send) throw (Device::ConnectionError);
   /**
    * Funkcja odbierająca 4 bajty z urządzenia zdalnego traktowane jako 4-bajtowa liczba bez znaku z kolejnością bajtów "little endian"
    * @return Liczba bez znaku.
    */
-  u_int32_t receiveUInt4() throw (Device::ConnectionError);
+  virtual u_int32_t receiveUInt4() throw (Device::ConnectionError);
   /**
    * Funkcja odbierająca jeden bajt z urządzenia zdalnego traktowany jako char.
    * @return Odebrany bajt jako char.
@@ -121,11 +121,11 @@ public:
   /**
    * Funkcja łącząca z urządzeniem.
    */
-  void startConnection();
+  virtual void startConnection();
   /**
    * Funkcja zamykająca połączenie, a co z tym idzie i połączenie.
    */
-  void stopConnection();
+  virtual void stopConnection();
 private:
   std::string MAC;
   std::string name;
