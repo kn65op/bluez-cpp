@@ -45,6 +45,9 @@
         <compilerSet>default</compilerSet>
       </toolsSet>
       <compileType>
+        <ccTool>
+          <commandLine>-std=c++03</commandLine>
+        </ccTool>
         <linkerTool>
           <linkerLibItems>
             <linkerOptionItem>-lbluetooth</linkerOptionItem>
@@ -70,10 +73,12 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -109,10 +114,12 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
