@@ -91,7 +91,7 @@ ${TESTDIR}/TestFiles/f1: ${TESTDIR}/tests/BluezBluetoothTest.o ${OBJECTFILES:%.o
 ${TESTDIR}/tests/BluezBluetoothTest.o: tests/BluezBluetoothTest.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/BluezBluetoothTest.o tests/BluezBluetoothTest.cpp
+	$(COMPILE.cc) -O2 -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/BluezBluetoothTest.o tests/BluezBluetoothTest.cpp
 
 
 ${OBJECTDIR}/Device_nomain.o: ${OBJECTDIR}/Device.o Device.cpp 
